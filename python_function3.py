@@ -57,4 +57,4 @@ user_results = {
         'Bank': bank.copy(),
         'State': state.copy(),
 }
-user_results
+print(user_results)
