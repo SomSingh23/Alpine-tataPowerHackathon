@@ -3,27 +3,54 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/icon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/icon/android-chrome-512x512.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/icon/android-chrome-192x192.png"
+    />
     <link rel="stylesheet" href="/css/home.css" />
     <title>Home</title>
   </head>
   <body>
+    <% if(!isAuthenticated){%>
     <div class="nav_bar">
       <div class="home">
-        <a href="#"><p>Home</p></a>
+        <a href="/"><p>Home</p></a>
       </div>
-      <div class="signpu">
-        <a href="#"><p>Sign up with Google</p></a>
+      <div>
+        <a class="signpu" href="/api/google/verify"
+          ><p>Sign up with</p>
+          <img
+            src="/images/google_log.png"
+            alt="Google Logo"
+            class="google-logo"
+            height="20px"
+            width="20px"
+        /></a>
       </div>
       <div class="test_api">
-        <a href="#"><p>Test API</p></a>
+        <a href="/test_api"><p>Test API</p></a>
       </div>
       <div class="company">
-        <a href="#"><p>Company Login</p></a>
+        <a href="/company_login"><p>Company Login</p></a>
       </div>
-      <div class="company">
-        <a href="#"><p>API KEY</p></a>
+      <div class="api_key">
+        <a href="/api_key"><p>API KEY</p></a>
       </div>
     </div>
+
     <div>
       <img
         class="img_tata"
@@ -35,5 +62,36 @@
     <div class="copyright">
       <p>&copy; 2023 IIIT Pune. All rights reserved.</p>
     </div>
+    <%}else{%>
+    <div class="nav_bar">
+      <div class="home">
+        <a href="/"><p>Home</p></a>
+      </div>
+      <div>
+        <a href="/logout"><p class="logout">Logout</p> </a>
+      </div>
+      <div class="test_api">
+        <a href="/test_api"><p>Test API</p></a>
+      </div>
+      <div class="company">
+        <a href="/company_login"><p>Company Login</p></a>
+      </div>
+      <div class="api_key">
+        <a href="/api_key"><p>API KEY</p></a>
+      </div>
+    </div>
+
+    <div>
+      <img
+        class="img_tata"
+        width="70%"
+        height="35%"
+        src="/images/tata_power_logo.png"
+      />
+    </div>
+    <div class="copyright">
+      <p>&copy; 2023 IIIT Pune. All rights reserved.</p>
+    </div>
+    <%}%>
   </body>
 </html>

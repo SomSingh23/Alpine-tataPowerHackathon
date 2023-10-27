@@ -4,9 +4,14 @@ body {
   padding: 0;
   background-color: #f0f0f0;
 }
-
+::-webkit-scrollbar {
+  width: 0em;
+}
+.logout {
+  color: #ffcd4b;
+}
 .nav_bar {
-  height: 100px;
+  height: 82px;
   background-color: #1b6bb5;
   display: flex;
   justify-content: space-around;
@@ -26,7 +31,14 @@ body {
 .nav_bar p {
   margin: 0;
 }
-
+.signpu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.signpu img {
+  margin-left: 4px;
+}
 .background {
   text-align: center;
   margin: 20px 0;
