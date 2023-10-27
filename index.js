@@ -6,6 +6,7 @@ let session = require("express-session");
 const MongoStore = require("connect-mongo");
 var findOrCreate = require("mongoose-findorcreate");
 let passport = require("passport");
+let strategy = require("passport-local");
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
 let User = require("./models/user");
 let fs = require("fs");
@@ -21,6 +22,7 @@ mongoose
 let getApi = require("./utils/middleware/getApi");
 let isAuth = require("./utils/middleware/isAuth");
 let runPy = require("./utils/runPy/runPy");
+let runPy2 = require("./utils/runPy/runPy2");
 app.listen(process.env.PORT, () => {
   console.log(`Running on port ${process.env.PORT}....`);
 });
@@ -41,6 +43,7 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+passport.use(new strategy(User.authenticate()));
 
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -115,8 +118,21 @@ app.get("/test_api/ub_analysis", isAuth, (req, res) => {
 app.get("/test_api/effi_recom", isAuth, (req, res) => {
   res.render("test_api2");
 });
+app.get("/company/json", async (req, res) => {
+  // will add auth later on.... :)
+  try {
+    let data = await runPy2("python_function3.py");
+    res.json(data);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+app.get("/company/visual", (req, res) => {
+  // will add auth later on.... :)
+  res.render("visual");
+});
 app.get("/company_login", (req, res) => {
-  res.send("not a protected route :)");
+  res.render("login");
 });
 app.get("/api_key", isAuth, (req, res) => {
   res.send("api key generated");
@@ -151,4 +167,7 @@ app.post("/test_api2", isAuth, async (req, res) => {
   } catch (err) {
     res.status(400).json(err);
   }
+});
+app.post("/login", (req, res) => {
+  res.json(req.body);
 });
