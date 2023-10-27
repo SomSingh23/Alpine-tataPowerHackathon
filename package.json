@@ -1,0 +1,13 @@
+{
+  "name": "tataPowerHackathon",
+  "version": "1.0.0",
+  "description": "coep hackathon",
+  "main": "index.js",
+  "repository": "git@github.com:SomSingh23/Alpine-tataPowerHackathon.git",
+  "author": "SomSingh23 <githubsom@gmail.com>",
+  "license": "no",
+  "private": false,
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
