@@ -99,6 +99,7 @@ app.get(
 app.get("/", (req, res) => {
   let isAuthenticated = false;
   if (req.user) isAuthenticated = true;
+
   res.render("home", { isAuthenticated });
 });
 app.get("/test_api", isAuth, (req, res) => {
@@ -115,7 +116,6 @@ app.get("/logout", (req, res) => {
     if (err) {
       return res.status(400).send("error");
     } else {
-      console.log("logout successful");
       res.redirect("/");
     }
   });
