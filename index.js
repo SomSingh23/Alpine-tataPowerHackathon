@@ -108,7 +108,13 @@ app.get("/", (req, res) => {
   res.render("home", { isAuthenticated });
 });
 app.get("/test_api", isAuth, (req, res) => {
-  res.render("test_api");
+  res.render("type_api");
+});
+app.get("/test_api/ub_analysis", isAuth, (req, res) => {
+  res.render("test_api1");
+});
+app.get("/test_api/effi_recom", isAuth, (req, res) => {
+  res.render("test_api2");
 });
 app.get("/company_login", (req, res) => {
   res.send("not a protected route :)");
@@ -125,11 +131,13 @@ app.get("/logout", (req, res) => {
     }
   });
 });
-app.post("/test_api", isAuth, async (req, res) => {
+app.post("/test_api1", isAuth, async (req, res) => {
   let name = uuid();
   name += ".txt";
-
   await fs.writeFileSync(name, req.body.userId);
   let data = await runPy("python_function1.py", name);
   res.json(data);
+});
+app.post("/test_api2", isAuth, async (req, res) => {
+  res.json("Type 2 api");
 });
