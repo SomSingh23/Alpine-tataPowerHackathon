@@ -104,7 +104,6 @@ app.get(
 app.get("/", (req, res) => {
   let isAuthenticated = false;
   if (req.user) isAuthenticated = true;
-  console.log(req.user);
   res.render("home", { isAuthenticated });
 });
 app.get("/test_api", isAuth, (req, res) => {
@@ -132,12 +131,24 @@ app.get("/logout", (req, res) => {
   });
 });
 app.post("/test_api1", isAuth, async (req, res) => {
-  let name = uuid();
-  name += ".txt";
-  await fs.writeFileSync(name, req.body.userId);
-  let data = await runPy("python_function1.py", name);
-  res.json(data);
+  try {
+    let name = uuid();
+    name += ".txt";
+    await fs.writeFileSync(name, req.body.userId);
+    let data = await runPy("python_function1.py", name);
+    res.json(data);
+  } catch (err) {
+    res.status(400).json(err);
+  }
 });
 app.post("/test_api2", isAuth, async (req, res) => {
-  res.json("Type 2 api");
+  try {
+    let name = uuid();
+    name += ".txt";
+    await fs.writeFileSync(name, req.body.userId);
+    let data = await runPy("python_function2.py", name);
+    res.json(data);
+  } catch (err) {
+    res.status(400).json(err);
+  }
 });

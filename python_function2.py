@@ -1,6 +1,5 @@
 import pandas as pd;
-from itertools import count
-df=pd.read_csv('T4.csv')
+df=pd.read_csv('ev.csv')
 # Define charge preference categories
 charge_preferences = {
     'Eco-friendly': 0,
@@ -110,7 +109,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
 # Load your dataset into a Pandas DataFrame (replace 'your_dataset.csv' with your actual dataset file)
-df = pd.read_csv('T4.csv')
+df = pd.read_csv('ev.csv')
 
 # Select input features and output target
 input_features = ['DailyDrivingDistance', 'BatteryCapacity']
@@ -139,8 +138,8 @@ accuracy = model.score(X_test, y_test)
 # print("Accuracy:", accuracy)
 
 # prediction = model.predict(new_data)
-# decoded_prediction = le.inverse_transform(prediction)
-param=2
+# decoded_prediction = le.inverse_transform(prclearediction)
+param = int(input())
 for i in behaviours:
    if(i['UserID']==int(param)):
        new_data = pd.DataFrame({'DailyDrivingDistance':[i['DailyDrivingDistance']], 'BatteryCapacity': [i['BatteryCapacity']]})
