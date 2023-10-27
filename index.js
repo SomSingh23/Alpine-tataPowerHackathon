@@ -18,9 +18,12 @@ mongoose
   .catch((err) => console.error(err));
 let getApi = require("./utils/middleware/getApi");
 let isAuth = require("./utils/middleware/isAuth");
+let runPy = require("./utils/runPy/runPy");
 app.listen(process.env.PORT, () => {
   console.log(`Running on port ${process.env.PORT}....`);
 });
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 // google auth starting from this line
 app.use(
   session({
@@ -99,11 +102,11 @@ app.get(
 app.get("/", (req, res) => {
   let isAuthenticated = false;
   if (req.user) isAuthenticated = true;
-
+  console.log(req.user);
   res.render("home", { isAuthenticated });
 });
 app.get("/test_api", isAuth, (req, res) => {
-  res.send("you are testing api");
+  res.render("test_api");
 });
 app.get("/company_login", (req, res) => {
   res.send("not a protected route :)");
@@ -119,4 +122,8 @@ app.get("/logout", (req, res) => {
       res.redirect("/");
     }
   });
+});
+app.post("/test_api", isAuth, async (req, res) => {
+  let data = await runPy("python_function1.py");
+  res.json(data);
 });
