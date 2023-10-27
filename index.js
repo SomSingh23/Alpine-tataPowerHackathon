@@ -8,6 +8,8 @@ var findOrCreate = require("mongoose-findorcreate");
 let passport = require("passport");
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
 let User = require("./models/user");
+let fs = require("fs");
+const { v4: uuid } = require("uuid");
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 mongoose
@@ -124,6 +126,10 @@ app.get("/logout", (req, res) => {
   });
 });
 app.post("/test_api", isAuth, async (req, res) => {
-  let data = await runPy("python_function1.py");
+  let name = uuid();
+  name += ".txt";
+
+  await fs.writeFileSync(name, req.body.userId);
+  let data = await runPy("python_function1.py", name);
   res.json(data);
 });

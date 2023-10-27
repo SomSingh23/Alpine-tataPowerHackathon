@@ -99,5 +99,6 @@ def your_data_mining_function(param1):
         if filtered_data:
             return filtered_data[0]  # Return the first matching item
         return ["NO DATA"]
-data = your_data_mining_function(1)
+t = int(input())
+data = your_data_mining_function(t)
 print(data)
