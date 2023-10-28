@@ -20,6 +20,7 @@
       href="/icon/android-chrome-192x192.png"
     />
     <link rel="stylesheet" href="/css/home.css" />
+    <link rel="stylesheet" href="/css/1.css" />
   </head>
   <body>
     <% if(!isAuthenticated){%>
@@ -69,8 +70,8 @@
     </div>
 
     <%}%>
-    <h1>User ID Form</h1>
-    <form action="/test_api2" method="post">
+
+    <form action="/test_api2" method="post" class="b1">
       <label for="userId">User ID:</label>
       <input type="text" id="userId" name="userId" required />
       <br />

@@ -4,8 +4,69 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="/css/home.css" />
   </head>
   <body>
-    <h1>Demand analysis</h1>
+    <% if(!isAuthenticated){%>
+    <div class="nav_bar">
+      <div class="home">
+        <a href="/"><p>Home</p></a>
+      </div>
+      <div>
+        <a class="signpu" href="/api/google/verify"
+          ><p>Sign up with</p>
+          <img
+            src="/images/google_log.png"
+            alt="Google Logo"
+            class="google-logo"
+            height="20px"
+            width="20px"
+        /></a>
+      </div>
+      <div class="test_api">
+        <a href="/test_api"><p>Test API</p></a>
+      </div>
+      <div class="company">
+        <a href="/company_login"><p>Company Login</p></a>
+      </div>
+      <div class="api_key">
+        <a href="/api_key"><p>API KEY</p></a>
+      </div>
+    </div>
+    <%}else{%>
+    <div class="nav_bar">
+      <div class="home">
+        <a href="/"><p>Home</p></a>
+      </div>
+      <div>
+        <a href="/logout"><p class="logout">Logout</p> </a>
+      </div>
+      <div class="test_api">
+        <a href="/test_api"><p>Test API</p></a>
+      </div>
+      <div class="company">
+        <a href="/company_login"><p>Company Login</p></a>
+      </div>
+      <div class="api_key">
+        <a href="/api_key"><p>API KEY</p></a>
+      </div>
+    </div>
+
+    <%}%>
+    <img src="/ai_gen_img/dp1.png" alt="dp1 image" />
+    <br />
+
+    <p>
+      Demand Prediction Current Demand for Eco Friendly ChargePreference for
+      Delhi and Tamil Nadu is high so in future also, there are chances that it
+      would be high, Also even if the demand is high, we cannot guarantee
+      anything about the number of charging stations, so if there are not
+      sufficient charging stations, then we must install them Service Gap Places
+      where eco friendly chargepreference is less i.e. West Bengal and Karnataka
+      so for that 2 reasons are possible, firstly may be due to less number of
+      service centres so we need to open more service centres or the unawareness
+      of the benefits of eco friendly charging so a campaign must be
+      started for that.
+    </p>
   </body>
 </html>
