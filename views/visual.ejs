@@ -68,8 +68,18 @@
         <a href="/api_key"><p>API KEY</p></a>
       </div>
     </div>
-
+    <h2>Data visuals</h2>
     <%}%>
-    <h1>Visual Data</h1>
+    <div class="karo_yr">
+      <%for(let i = 0;i<11;i++){ %>
+      <img
+        height="440px"
+        width="440px"
+        style="margin: 10px"
+        src="/ai_gen_img/<%=i%>.png"
+      />
+
+      <%}%>
+    </div>
   </body>
 </html>

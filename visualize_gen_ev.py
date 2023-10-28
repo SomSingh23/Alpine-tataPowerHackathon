@@ -16,6 +16,6 @@ for col, counts in results.items():
     plt.pie(sizes, labels=labels, autopct='%1.1f%%')
     plt.title(f'Counts for {col}')
     plt.axis('equal')
-    plt.savefig(f'./{i}')
+    plt.savefig(f'./public/ai_gen_img/{i}')
     i+=1
     # plt.show()

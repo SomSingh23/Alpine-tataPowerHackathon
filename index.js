@@ -161,7 +161,10 @@ app.get("/company/visual", isCom, async (req, res) => {
   // will add auth later on.... :)
   try {
     // let data = await runPy2("python_function3.py");
-    res.send("working on this");
+    let isAuthenticated = false;
+    if (req.user) isAuthenticated = true;
+    await runPy2("visualize_gen_ev.py");
+    res.render("visual", { isAuthenticated });
   } catch (err) {
     res.status(400).json("Something went wrong");
   }

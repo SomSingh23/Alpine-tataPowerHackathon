@@ -60,3 +60,10 @@ body {
 .nav_bar a:hover {
   color: #fbff00;
 }
+.karo_yr {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+}
