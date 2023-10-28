@@ -24,6 +24,8 @@ let isAuth = require("./utils/middleware/isAuth");
 let runPy = require("./utils/runPy/runPy");
 let runPy2 = require("./utils/runPy/runPy2");
 let isCom = require("./utils/middleware/isCom");
+let arr = require("./utils/stats/arrayData");
+let arr2 = require("./utils/stats/arrayData2");
 app.listen(process.env.PORT, () => {
   console.log(`Running on port ${process.env.PORT}....`);
 });
@@ -176,7 +178,31 @@ app.get("/company/demand", isCom, async (req, res) => {
     let isAuthenticated = false;
     if (req.user) isAuthenticated = true;
     await runPy2("demand_ev.py");
-    res.render("demand", { isAuthenticated });
+    res.render("demand", { isAuthenticated, arr });
+  } catch (err) {
+    res.status(400).json("Something went wrong");
+  }
+});
+app.get("/company/cost", isCom, async (req, res) => {
+  // will add auth later on.... :)
+  try {
+    // let data = await runPy2("python_function3.py");
+    let isAuthenticated = false;
+    if (req.user) isAuthenticated = true;
+    await runPy2("cost_efficiency.py");
+    res.render("cost", { isAuthenticated, arr2 });
+  } catch (err) {
+    res.status(400).json("Something went wrong");
+  }
+});
+app.get("/company/mapping", isCom, async (req, res) => {
+  // will add auth later on.... :)
+  try {
+    // let data = await runPy2("python_function3.py");
+    let isAuthenticated = false;
+    if (req.user) isAuthenticated = true;
+    await runPy2("spatialmapping.py");
+    res.render("mapping", { isAuthenticated });
   } catch (err) {
     res.status(400).json("Something went wrong");
   }
