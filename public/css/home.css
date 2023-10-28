@@ -11,8 +11,8 @@ body {
   color: #ffcd4b;
 }
 .nav_bar {
-  height: 82px;
-  background-color: #8fbd3f;
+  height: 70px;
+  background-color: #81b241;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -57,5 +57,5 @@ body {
 }
 
 .nav_bar a:hover {
-  color: #fffb00;
+  color: #fbff00;
 }

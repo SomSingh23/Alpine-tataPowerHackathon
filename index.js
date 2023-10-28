@@ -134,7 +134,9 @@ app.get(
     next();
   },
   (req, res) => {
-    return res.render("login");
+    let isAuthenticated = false;
+    if (req.user) isAuthenticated = true;
+    return res.render("login", { isAuthenticated });
   }
 );
 app.get("/company/json", async (req, res) => {
