@@ -1,0 +1,62 @@
+/* Reset default margin and padding */
+body,
+h1,
+form {
+  margin: 0;
+  padding: 0;
+}
+
+/* Apply styles to the header */
+.header {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Style the form container */
+form {
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style labels */
+label {
+  display: block;
+  margin-bottom: 10px; /* Slightly increased spacing below labels */
+  font-weight: bold;
+}
+
+/* Style text and password inputs */
+input[type="username"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px; /* Increased padding for input fields */
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style the submit button */
+button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  padding: 12px 20px; /* Slightly increased padding for the button */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Style the required indicator (asterisk) */
+input:required::after {
+  content: " *";
+  color: red;
+}
+
+/* Add hover effect for the submit button */
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}

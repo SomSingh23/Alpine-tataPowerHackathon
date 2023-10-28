@@ -1,0 +1,31 @@
+.demand_img {
+  display: block;
+  margin: 0 auto; /* Center-align the image */
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+p {
+  text-align: center;
+  font-size: 18px;
+  margin: 20px;
+  line-height: 1.5; /* Adjust line height for readability */
+}
+
+/* Add some padding to the image and paragraph */
+.demand_img,
+p {
+  padding: 10px;
+}
+
+/* Style the alt text for the image */
+.demand_img::after {
+  content: attr(alt);
+  display: block;
+  text-align: center;
+  font-size: 16px;
+  margin-top: 10px;
+  color: #888;
+}

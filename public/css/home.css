@@ -9,6 +9,10 @@ body {
 }
 .logout {
   color: #ffffff;
+  transition: all 0.4s;
+}
+.logout:hover {
+  color: #000268;
 }
 .nav_bar {
   height: 70px;

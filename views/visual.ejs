@@ -21,6 +21,7 @@
       href="/icon/android-chrome-192x192.png"
     />
     <link rel="stylesheet" href="/css/home.css" />
+    <link rel="stylesheet" href="/css/5.css" />
     <title>Document</title>
   </head>
   <body>
@@ -68,18 +69,22 @@
         <a href="/api_key"><p>API KEY</p></a>
       </div>
     </div>
-    <h2>Data visuals</h2>
+
     <%}%>
+    <h2>Data visuals</h2>
     <div class="karo_yr">
       <%for(let i = 0;i<11;i++){ %>
       <img
-        height="440px"
-        width="440px"
+        height="700px"
+        width="700px"
         style="margin: 10px"
         src="/ai_gen_img/<%=i%>.png"
       />
 
       <%}%>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2023 IIIT Pune. All rights reserved.</p>
     </div>
   </body>
 </html>
