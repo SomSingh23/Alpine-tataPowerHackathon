@@ -169,6 +169,18 @@ app.get("/company/visual", isCom, async (req, res) => {
     res.status(400).json("Something went wrong");
   }
 });
+app.get("/company/demand", isCom, async (req, res) => {
+  // will add auth later on.... :)
+  try {
+    // let data = await runPy2("python_function3.py");
+    let isAuthenticated = false;
+    if (req.user) isAuthenticated = true;
+    await runPy2("demand_ev.py");
+    res.render("demand", { isAuthenticated });
+  } catch (err) {
+    res.status(400).json("Something went wrong");
+  }
+});
 app.get("/api_key", isAuth, (req, res) => {
   res.send("api key generated");
 });
