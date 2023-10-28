@@ -1,12 +1,11 @@
 let isCom = (req, res, next) => {
   let ans = false;
-  if (req.user) {
-    if (req.user.isCompany === true) ans = true;
-    else ans = false;
+  if (req.user === undefined) {
+    return res.redirect("/company_login");
   }
-  if (ans === true) {
+  const propertyCount = Object.keys(req.user).length;
+  if (propertyCount === 6) {
     next();
-  }
-  return res.status(300).redirect("/company_login");
+  } else return res.redirect("/company_login");
 };
 module.exports = isCom;

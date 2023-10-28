@@ -8,7 +8,7 @@ body {
   width: 0em;
 }
 .logout {
-  color: #ffcd4b;
+  color: #cd0000;
 }
 .nav_bar {
   height: 70px;
@@ -21,6 +21,7 @@ body {
 .nav_bar a {
   text-decoration: none;
   font-size: 18px;
+  font-weight: 500;
   color: rgb(255, 255, 255);
 }
 .nav_bar div {

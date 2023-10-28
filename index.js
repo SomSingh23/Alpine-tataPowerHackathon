@@ -108,28 +108,37 @@ app.get(
 app.get("/", (req, res) => {
   let isAuthenticated = false;
   if (req.user) isAuthenticated = true;
-  console.log(req.user);
   res.render("home", { isAuthenticated });
 });
 app.get("/test_api", isAuth, (req, res) => {
-  res.render("type_api");
+  let isAuthenticated = false;
+  if (req.user) isAuthenticated = true;
+  res.render("type_api", { isAuthenticated });
 });
 app.get("/test_api/ub_analysis", isAuth, (req, res) => {
-  res.render("test_api1");
+  let isAuthenticated = false;
+  if (req.user) isAuthenticated = true;
+  res.render("test_api1", { isAuthenticated });
 });
 app.get("/test_api/effi_recom", isAuth, (req, res) => {
-  res.render("test_api2");
+  let isAuthenticated = false;
+  if (req.user) isAuthenticated = true;
+  res.render("test_api2", { isAuthenticated });
 });
 
 app.get(
   "/company_login",
   (req, res, next) => {
     let ans = false;
-    if (req.user) {
-      if (req.user.isCompany === true) ans = true;
+    if (req.user === undefined) {
+      return next();
     }
-    if (ans === true) {
-      return res.render("company");
+    const propertyCount = Object.keys(req.user).length;
+    console.log(propertyCount);
+    if (propertyCount === 6) {
+      let isAuthenticated = false;
+      if (req.user) isAuthenticated = true;
+      return res.render("company", { isAuthenticated });
     }
     next();
   },
@@ -139,7 +148,7 @@ app.get(
     return res.render("login", { isAuthenticated });
   }
 );
-app.get("/company/json", async (req, res) => {
+app.get("/company/json", isCom, async (req, res) => {
   // will add auth later on.... :)
   try {
     let data = await runPy2("python_function3.py");
@@ -148,9 +157,14 @@ app.get("/company/json", async (req, res) => {
     res.status(400).json("Something went wrong");
   }
 });
-app.get("/company/visual", (req, res) => {
+app.get("/company/visual", isCom, async (req, res) => {
   // will add auth later on.... :)
-  res.render("visual");
+  try {
+    // let data = await runPy2("python_function3.py");
+    res.send("working on this");
+  } catch (err) {
+    res.status(400).json("Something went wrong");
+  }
 });
 app.get("/api_key", isAuth, (req, res) => {
   res.send("api key generated");
@@ -193,6 +207,8 @@ app.post(
   }),
   (req, res) => {
     console.log("login successful");
-    res.render("company");
+    let isAuthenticated = false;
+    if (req.user) isAuthenticated = true;
+    res.render("company", { isAuthenticated });
   }
 );
