@@ -23,6 +23,7 @@ let getApi = require("./utils/middleware/getApi");
 let isAuth = require("./utils/middleware/isAuth");
 let runPy = require("./utils/runPy/runPy");
 let runPy2 = require("./utils/runPy/runPy2");
+let isCom = require("./utils/middleware/isCom");
 app.listen(process.env.PORT, () => {
   console.log(`Running on port ${process.env.PORT}....`);
 });
@@ -107,6 +108,7 @@ app.get(
 app.get("/", (req, res) => {
   let isAuthenticated = false;
   if (req.user) isAuthenticated = true;
+  console.log(req.user);
   res.render("home", { isAuthenticated });
 });
 app.get("/test_api", isAuth, (req, res) => {
@@ -118,21 +120,35 @@ app.get("/test_api/ub_analysis", isAuth, (req, res) => {
 app.get("/test_api/effi_recom", isAuth, (req, res) => {
   res.render("test_api2");
 });
+
+app.get(
+  "/company_login",
+  (req, res, next) => {
+    let ans = false;
+    if (req.user) {
+      if (req.user.isCompany === true) ans = true;
+    }
+    if (ans === true) {
+      return res.render("company");
+    }
+    next();
+  },
+  (req, res) => {
+    return res.render("login");
+  }
+);
 app.get("/company/json", async (req, res) => {
   // will add auth later on.... :)
   try {
     let data = await runPy2("python_function3.py");
     res.json(data);
   } catch (err) {
-    res.status(400).json(err);
+    res.status(400).json("Something went wrong");
   }
 });
 app.get("/company/visual", (req, res) => {
   // will add auth later on.... :)
   res.render("visual");
-});
-app.get("/company_login", (req, res) => {
-  res.render("login");
 });
 app.get("/api_key", isAuth, (req, res) => {
   res.send("api key generated");
@@ -168,6 +184,13 @@ app.post("/test_api2", isAuth, async (req, res) => {
     res.status(400).json(err);
   }
 });
-app.post("/login", (req, res) => {
-  res.json(req.body);
-});
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    failureRedirect: "/company_login",
+  }),
+  (req, res) => {
+    console.log("login successful");
+    res.render("company");
+  }
+);
