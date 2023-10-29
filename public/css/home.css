@@ -1,5 +1,7 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Kaushan Script", cursive;
+  font-family: "Playfair Display", serif;
+  font-family: "Sometype Mono", monospace;
   margin: 0;
   padding: 0;
   background-color: #fff3f3d3;
@@ -29,12 +31,13 @@ body {
   color: rgb(255, 255, 255);
 }
 .nav_bar div {
-  padding: 25px;
-
   border-radius: 14px;
 }
 .nav_bar p {
   margin: 0;
+
+  border-radius: 10px;
+  font-size: 20px;
 }
 .signpu {
   display: flex;

@@ -1,11 +1,9 @@
-FROM node:alpine
+FROM node:20.9.0-bullseye
 WORKDIR /tataPower
 COPY package.json /tataPower
 RUN yarn
-# Install Python and Pip
-RUN apk --no-cache add python3 py3-pip
-
-# Install other Python modules using Pip
+RUN apt-get update && apt-get install -y python3 python3-pip
+RUN python3 -m pip install --upgrade pip
 RUN pip install pandas seaborn matplotlib
 COPY . /tataPower
 EXPOSE 3000

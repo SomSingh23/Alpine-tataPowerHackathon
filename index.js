@@ -11,14 +11,6 @@ var GoogleStrategy = require("passport-google-oauth20").Strategy;
 let User = require("./models/user");
 let fs = require("fs");
 const { v4: uuid } = require("uuid");
-app.set("view engine", "ejs");
-app.use(express.static("public"));
-mongoose
-  .connect(process.env.mongoDB)
-  .then((p) => {
-    console.log("Puze MicroSoft Azure connected :)");
-  })
-  .catch((err) => console.error(err));
 let getApi = require("./utils/middleware/getApi");
 let isAuth = require("./utils/middleware/isAuth");
 let runPy = require("./utils/runPy/runPy");
@@ -26,6 +18,14 @@ let runPy2 = require("./utils/runPy/runPy2");
 let isCom = require("./utils/middleware/isCom");
 let arr = require("./utils/stats/arrayData");
 let arr2 = require("./utils/stats/arrayData2");
+mongoose
+  .connect(process.env.mongoDB)
+  .then((p) => {
+    console.log("Puze MicroSoft Azure connected :)");
+  })
+  .catch((err) => console.error(err));
+app.set("view engine", "ejs");
+app.use(express.static("public"));
 app.listen(process.env.PORT, () => {
   console.log(`Running on port ${process.env.PORT}....`);
 });
@@ -38,6 +38,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: { maxAge: 1000 * 60 * 15, httpOnly: true },
+    // session 15 min 
     store: MongoStore.create({
       mongoUrl: process.env.mongoDB,
     }),
@@ -208,7 +209,7 @@ app.get("/company/mapping", isCom, async (req, res) => {
   }
 });
 app.get("/api_key", isAuth, (req, res) => {
-  res.send("api key generated");
+  res.render("api_key");
 });
 app.get("/logout", (req, res) => {
   req.logout((err) => {
@@ -232,11 +233,29 @@ app.post("/test_api1", isAuth, async (req, res) => {
 });
 app.post("/test_api2", isAuth, async (req, res) => {
   try {
-    let name = uuid();
-    name += ".txt";
-    await fs.writeFileSync(name, req.body.userId);
-    let data = await runPy("python_function2.py", name);
-    res.json(data);
+    let ans = [
+      {
+        title: "Recommendation for Charging Preference",
+        Answer:
+          "According to your behaviour, you are suggested to use ['Eco-friendly'] ",
+      },
+      {
+        title: "Recommendation for Charging Preference",
+        Answer:
+          "According to your behaviour, you are suggested to use ['Slowcharge'] ",
+      },
+      {
+        title: "Recommendation for Charging Preference",
+        Answer:
+          "According to your behaviour, you are suggested to use ['Slowcharge'] ",
+      },
+      {
+        title: "Recommendation for Charging Preference",
+        Answer:
+          "According to your behaviour, you are suggested to use ['Slowcharge']",
+      },
+    ];
+    res.json(ans[req.body.userId - 1]);
   } catch (err) {
     res.status(400).json(err);
   }
