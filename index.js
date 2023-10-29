@@ -18,6 +18,7 @@ let runPy2 = require("./utils/runPy/runPy2");
 let isCom = require("./utils/middleware/isCom");
 let arr = require("./utils/stats/arrayData");
 let arr2 = require("./utils/stats/arrayData2");
+let arr3 = require("./utils/stats/arrayData3");
 mongoose
   .connect(process.env.mongoDB)
   .then((p) => {
@@ -38,7 +39,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: { maxAge: 1000 * 60 * 15, httpOnly: true },
-    // session 15 min 
+    // session 15 min
     store: MongoStore.create({
       mongoUrl: process.env.mongoDB,
     }),
@@ -233,42 +234,22 @@ app.post("/test_api1", isAuth, async (req, res) => {
 });
 app.post("/test_api2", isAuth, async (req, res) => {
   try {
-    let ans = [
-      {
-        title: "Recommendation for Charging Preference",
-        Answer:
-          "According to your behaviour, you are suggested to use ['Eco-friendly'] ",
-      },
-      {
-        title: "Recommendation for Charging Preference",
-        Answer:
-          "According to your behaviour, you are suggested to use ['Slowcharge'] ",
-      },
-      {
-        title: "Recommendation for Charging Preference",
-        Answer:
-          "According to your behaviour, you are suggested to use ['Slowcharge'] ",
-      },
-      {
-        title: "Recommendation for Charging Preference",
-        Answer:
-          "According to your behaviour, you are suggested to use ['Slowcharge']",
-      },
-    ];
-    res.json(ans[req.body.userId - 1]);
+    res.json(arr3[req.body.userId - 1]);
   } catch (err) {
     res.status(400).json(err);
   }
 });
 app.post(
   "/login",
+  (req, res, next) => {
+    res.locals.userWant = req.session.whatUserWant || "/company_login";
+    next();
+  },
   passport.authenticate("local", {
     failureRedirect: "/company_login",
   }),
   (req, res) => {
     console.log("login successful");
-    let isAuthenticated = false;
-    if (req.user) isAuthenticated = true;
-    res.render("company", { isAuthenticated });
+    return res.redirect(res.locals.userWant);
   }
 );
