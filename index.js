@@ -19,6 +19,7 @@ let isCom = require("./utils/middleware/isCom");
 let arr = require("./utils/stats/arrayData");
 let arr2 = require("./utils/stats/arrayData2");
 let arr3 = require("./utils/stats/arrayData3");
+let Key = require("./models/api");
 mongoose
   .connect(process.env.mongoDB)
   .then((p) => {
@@ -38,7 +39,7 @@ app.use(
     secret: process.env.header, // Replace with a secure random string future
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 1000 * 60 * 15, httpOnly: true },
+    cookie: { maxAge: 1000 * 60 * 30, httpOnly: true },
     // session 15 min
     store: MongoStore.create({
       mongoUrl: process.env.mongoDB,
@@ -209,7 +210,13 @@ app.get("/company/mapping", isCom, async (req, res) => {
     res.status(400).json("Something went wrong");
   }
 });
-app.get("/api_key", isAuth, (req, res) => {
+app.get("/api_key", isAuth, async (req, res) => {
+  let whatIsKey = req.user.googleId || req.user.salt;
+  let data = await Key.findOne({ id: whatIsKey });
+
+  if (data) {
+    return res.render("api_key_detail", { key: whatIsKey, x: 101 });
+  }
   res.render("api_key");
 });
 app.get("/logout", (req, res) => {
@@ -239,6 +246,22 @@ app.post("/test_api2", isAuth, async (req, res) => {
     res.status(400).json(err);
   }
 });
+app.post("/api/generate", isAuth, async (req, res) => {
+  try {
+    console.log("Request to generate api key");
+
+    let whatIsKey = req.user.googleId || req.user.salt;
+    let _data = await Key.findOne({ id: whatIsKey });
+    if (_data) {
+      return res.render("api_key_detail", { key: whatIsKey, x: 101 });
+    }
+    let newKey = new Key({ api_key: whatIsKey, id: whatIsKey });
+    let data = await newKey.save();
+    res.render("api_key_detail", { key: whatIsKey, x: 101 });
+  } catch (err) {
+    res.status(401).send("Something went wrong");
+  }
+});
 app.post(
   "/login",
   (req, res, next) => {
@@ -253,3 +276,11 @@ app.post(
     return res.redirect(res.locals.userWant);
   }
 );
+// apis for users having api key
+
+app.get("/api/test/behaviour", getApi, (req, res) => {
+  res.send("protected route bypassed");
+});
+app.get("/api/test/efficiency", getApi, (req, res) => {
+  res.send("protected route bypassed");
+});

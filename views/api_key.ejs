@@ -1,62 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>API Key Entry</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f5f5f5;
-        text-align: center;
-      }
-
-      .container {
-        max-width: 400px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #fff;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      h1 {
-        color: #007bff;
-      }
-
-      form {
-        display: flex;
-        flex-direction: column;
-      }
-
-      label {
-        font-weight: bold;
-      }
-
-      input {
-        padding: 10px;
-        margin: 5px 0;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-      }
-
-      button {
-        background-color: #007bff;
-        color: #fff;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-    </style>
+    <title>Generate API Key</title>
   </head>
   <body>
-    <div class="container">
-      <h1>API Key Entry</h1>
-      <form method="post" action="/api/generate">
-        <label for="api_key">Generate API Key: Type Yes</label>
-        <input type="text" id="api_key" name="api_key" required />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+    <h1>Generate API Key</h1>
+    <form action="/api/generate" method="post">
+      <label for="generateApiKey">Do you want to generate an API key?</label>
+      <input
+        type="checkbox"
+        name="generateApiKey"
+        id="generateApiKey"
+        value="yes"
+        required
+      />
+      <br />
+      <button type="submit">Generate API Key</button>
+    </form>
   </body>
 </html>
