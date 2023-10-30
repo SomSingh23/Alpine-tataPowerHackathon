@@ -23,7 +23,7 @@ let Key = require("./models/api");
 mongoose
   .connect(process.env.mongoDB)
   .then((p) => {
-    console.log("Puze MicroSoft Azure connected :)");
+    console.log("Pune MicroSoft Azure connected :)");
   })
   .catch((err) => console.error(err));
 app.set("view engine", "ejs");
@@ -133,6 +133,7 @@ app.get("/test_api/effi_recom", isAuth, (req, res) => {
 
 app.get(
   "/company_login",
+  isAuth,
   (req, res, next) => {
     let ans = false;
     if (req.user === undefined) {
@@ -215,7 +216,7 @@ app.get("/api_key", isAuth, async (req, res) => {
   let data = await Key.findOne({ id: whatIsKey });
 
   if (data) {
-    return res.render("api_key_detail", { key: whatIsKey, x: 101 });
+    return res.render("api_key_detail", { key: whatIsKey, x: data.count });
   }
   res.render("api_key");
 });
@@ -253,13 +254,13 @@ app.post("/api/generate", isAuth, async (req, res) => {
     let whatIsKey = req.user.googleId || req.user.salt;
     let _data = await Key.findOne({ id: whatIsKey });
     if (_data) {
-      return res.render("api_key_detail", { key: whatIsKey, x: 101 });
+      return res.status(300).redirect("/api_key");
     }
-    let newKey = new Key({ api_key: whatIsKey, id: whatIsKey });
+    let newKey = new Key({ api_key: whatIsKey, id: whatIsKey, count: 0 });
     let data = await newKey.save();
-    res.render("api_key_detail", { key: whatIsKey, x: 101 });
+    res.status(300).redirect("/api_key");
   } catch (err) {
-    res.status(401).send("Something went wrong");
+    res.status(400).send("Something went wrong");
   }
 });
 app.post(
@@ -278,9 +279,29 @@ app.post(
 );
 // apis for users having api key
 
-app.get("/api/test/behaviour", getApi, (req, res) => {
-  res.send("protected route bypassed");
+app.get("/api/test/behaviour", getApi, async (req, res) => {
+  try {
+    let userId = req.query.userId;
+    if (userId <= 5 && userId >= 1) {
+      let name = uuid();
+      name += ".txt";
+      await fs.writeFileSync(name, userId);
+      let data = await runPy("python_function1.py", name);
+      return res.status(200).json(data);
+    }
+    return res.status(400).send("Please enter valid userId between 1 to 5");
+  } catch (err) {
+    res.status(400).json(err);
+  }
 });
 app.get("/api/test/efficiency", getApi, (req, res) => {
-  res.send("protected route bypassed");
+  try {
+    let userId = req.query.userId;
+    if (userId <= 5 && userId >= 1) {
+      return res.json(arr3[userId - 1]);
+    }
+    return res.status(400).send("Please enter valid userId between 1 to 5");
+  } catch (err) {
+    res.status(400).json(err);
+  }
 });
