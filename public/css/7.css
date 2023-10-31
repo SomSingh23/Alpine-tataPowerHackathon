@@ -1,8 +1,7 @@
-/* Reset some default styles for the HTML elements */
 body {
   margin: 0;
 }
-/* Apply a background color and text color to the body */
+
 body {
   background-color: #f5f5f5;
   font-family: Arial, sans-serif;
@@ -10,14 +9,12 @@ body {
   padding: 20px;
 }
 
-/* Style the heading */
 .heading {
   font-size: 24px;
   color: #333;
   margin-top: 60px;
 }
 
-/* Style the form container */
 form {
   background-color: #fff;
   border: 1px solid #ccc;
@@ -27,18 +24,15 @@ form {
   margin: 0 auto;
 }
 
-/* Style the label for the checkbox */
 label {
   display: block;
   margin-bottom: 10px;
 }
 
-/* Style the checkbox input */
 input[type="checkbox"] {
   margin-right: 5px;
 }
 
-/* Style the button */
 button {
   background-color: #007bff;
   color: #fff;
@@ -50,7 +44,6 @@ button {
   margin-top: 15px;
 }
 
-/* Hover effect for the button */
 button:hover {
   background-color: #0056b3;
 }

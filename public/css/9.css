@@ -1,4 +1,3 @@
-/* Apply a background color and text color to the body */
 body {
   background-color: #f9f9f9;
   font-family: Arial, sans-serif;
@@ -7,14 +6,12 @@ body {
   padding: 20px;
 }
 
-/* Style the heading with class "heading" */
 .heading {
   font-size: 36px;
   color: #007bff;
   margin-bottom: 20px;
 }
 
-/* Style the behavior and efficiency sections */
 .behaviour,
 .effi {
   background-color: #fff;
@@ -29,7 +26,6 @@ body {
   margin-top: 30px;
 }
 
-/* Style the behavior and efficiency section headings */
 .behaviour h2,
 .effi h2 {
   font-size: 24px;
@@ -38,7 +34,6 @@ body {
   margin: 20px 0;
 }
 
-/* Style the behavior and efficiency section paragraphs */
 .behaviour p,
 .effi p {
   font-size: 16px;
@@ -46,7 +41,6 @@ body {
   margin-bottom: 10px;
 }
 
-/* Style the code sections */
 .code {
   font-family: "Courier New", monospace;
   font-size: 14px;
@@ -58,7 +52,6 @@ body {
   text-align: left;
 }
 
-/* Style links */
 a {
   text-decoration: none;
   color: #007bff;
@@ -66,7 +59,6 @@ a {
   transition: color 0.3s;
 }
 
-/* Hover effect for links */
 a:hover {
   text-decoration: underline;
 }

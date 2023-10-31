@@ -1,4 +1,3 @@
-/* Style for the container divs */
 .user,
 .effi {
   text-align: center;
@@ -7,7 +6,7 @@
 .user {
   margin-top: 80px;
 }
-/* Style for the links inside the container divs */
+
 .user a,
 .effi a {
   text-decoration: none;
@@ -21,20 +20,17 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Hover effect for the links */
 .user a:hover,
 .effi a:hover {
   background-color: #007bff;
   color: #fff;
 }
 
-/* Style for the h2 headings */
 h2 {
   font-size: 24px;
   margin: 0;
 }
 
-/* Add some margin to the h2 headings */
 .user h2,
 .effi h2 {
   margin-top: 10px;

@@ -18,7 +18,6 @@ body {
   padding: 20px;
 }
 
-/* Style the heading with class "heading" */
 .heading {
   font-size: 36px;
   color: #007bff;
@@ -28,7 +27,6 @@ body {
   text-transform: uppercase;
 }
 
-/* Style the important note paragraph with class "note_usage" */
 .note_usage {
   font-size: 18px;
   color: #555;
@@ -36,7 +34,6 @@ body {
   font-style: italic;
 }
 
-/* Style the "Your API Key Usage" heading inside the "usage" div */
 .usage h2 {
   font-size: 24px;
   color: #007bff;
@@ -45,7 +42,6 @@ body {
   font-weight: bold;
 }
 
-/* Style the "usage" div */
 .usage {
   background-color: #ffffff;
   border: 1px solid #ccc;
@@ -60,14 +56,12 @@ body {
   max-width: 850px;
 }
 
-/* Style the paragraphs inside the "usage" div */
 .usage p {
   font-size: 16px;
   color: #333;
   margin-bottom: 15px;
 }
 
-/* Style the API Key and Copy button */
 #apiKey {
   font-weight: bold;
   color: #e27d7d;
@@ -88,7 +82,6 @@ body {
   background-color: #006ee3e1;
 }
 
-/* Style the link for "How to use API" inside the "how_to_use_api" div */
 .how_to_use_api a {
   text-decoration: none;
   color: #007bff;
@@ -96,7 +89,6 @@ body {
   transition: color 0.3s;
 }
 
-/* Hover effect for the link */
 a:hover {
   text-decoration: underline;
 }

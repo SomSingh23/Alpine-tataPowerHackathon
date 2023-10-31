@@ -6,4 +6,4 @@ RUN apk --no-cache add python3 py3-pip
 RUN pip install pandas seaborn matplotlib
 COPY . /tataPower
 EXPOSE 3000
-CMD [ "npm","start" ] 
+CMD [ "npm","start" ]
