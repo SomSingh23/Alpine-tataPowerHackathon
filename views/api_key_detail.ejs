@@ -1,18 +1,38 @@
+<link rel="stylesheet" href="/css/8.css">
 <%-include('partials/header')%>
+
     <title>API Key Information</title>
   </head>
   <body>
     <%-include('partials/navbar')%>
-    <h1>API Key Information</h1>
-    <p>
-      Note: Your API key can be used up to 500 times. Once the quota is
-      completed, the key will expire and you will need to request a new one.
+    <h1 class="heading">API Key Information</h1>
+    <p class="note_usage">
+      Note: Your API key can be used up to 500 times. Once the quota is completed, the key will expire, and you will need to request a new one.
     </p>
-
-    <h2>Your API Key Usage:</h2>
-    <p>API Key: <%= key %></p>
-    <p>API Calls Made: <%= x %></p>
-    <p>API Calls Remaining: <%= 500-x %></p>
-
-    <p><a href="/api/use">How to use API</a></p>
+    <div class="usage">
+      <h2>Your API Key Usage</h2>
+      <p><b>API Key</b>: <span id="apiKey"><%=key%></span> <button id="copyButton">Copy</button></p>
+      <p> API Calls Made: <span id="apiCallsMade"><%=x%></span></p>
+      <p> API Calls Remaining: <span id="apiCallsRemaining"><%=500-x%></span></p>
+    </div>
+  
+    <div class="how_to_use_api">
+      <p><a href="/api/use">How to use API</a></p>
+    </div>
+  
+    <script>
+      const apiKeyElement = document.getElementById("apiKey");
+      const copyButton = document.getElementById("copyButton");
+  
+      copyButton.addEventListener("click", () => {
+        const apiKeyText = apiKeyElement.innerText;
+        const textArea = document.createElement("textarea");
+        textArea.value = apiKeyText;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+        copyButton.innerText = "Copied!";
+      });
+    </script>
     <%-include('partials/last')%>

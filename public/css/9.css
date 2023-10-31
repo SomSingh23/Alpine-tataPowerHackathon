@@ -1,0 +1,72 @@
+/* Apply a background color and text color to the body */
+body {
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+  color: #333;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Style the heading with class "heading" */
+.heading {
+  font-size: 36px;
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+/* Style the behavior and efficiency sections */
+.behaviour,
+.effi {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px 0;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+}
+
+/* Style the behavior and efficiency section headings */
+.behaviour h2,
+.effi h2 {
+  font-size: 24px;
+  color: #007bff;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+/* Style the behavior and efficiency section paragraphs */
+.behaviour p,
+.effi p {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Style the code sections */
+.code {
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  background-color: #f5f5f5;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow-x: auto;
+  text-align: left;
+}
+
+/* Style links */
+a {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+/* Hover effect for links */
+a:hover {
+  text-decoration: underline;
+}

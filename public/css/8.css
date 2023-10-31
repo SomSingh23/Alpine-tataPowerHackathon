@@ -1,0 +1,102 @@
+/* Reset some default styles for the HTML elements */
+body,
+h1,
+p,
+h2,
+a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+}
+
+/* Apply a background color and text color to the body */
+body {
+  font-family: "Arial", sans-serif;
+  color: #333;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Style the heading with class "heading" */
+.heading {
+  font-size: 36px;
+  color: #007bff;
+  margin-bottom: 20px;
+  font-weight: bold;
+  margin-top: 50px;
+  text-transform: uppercase;
+}
+
+/* Style the important note paragraph with class "note_usage" */
+.note_usage {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+/* Style the "Your API Key Usage" heading inside the "usage" div */
+.usage h2 {
+  font-size: 24px;
+  color: #007bff;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+/* Style the "usage" div */
+.usage {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  max-width: 850px;
+}
+
+/* Style the paragraphs inside the "usage" div */
+.usage p {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Style the API Key and Copy button */
+#apiKey {
+  font-weight: bold;
+  color: #e27d7d;
+}
+
+#copyButton {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 20px;
+  margin-left: 10px;
+}
+
+#copyButton:hover {
+  background-color: #006ee3e1;
+}
+
+/* Style the link for "How to use API" inside the "how_to_use_api" div */
+.how_to_use_api a {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+/* Hover effect for the link */
+a:hover {
+  text-decoration: underline;
+}
