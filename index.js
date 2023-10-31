@@ -211,9 +211,13 @@ app.get("/api_key", isAuth, async (req, res) => {
   let data = await Key.findOne({ id: whatIsKey });
 
   if (data) {
-    return res.render("api_key_detail", { key: whatIsKey, x: data.count });
+    return res.render("api_key_detail", {
+      isAuthenticated: true,
+      key: whatIsKey,
+      x: data.count,
+    });
   }
-  res.render("api_key");
+  res.render("api_key", { isAuthenticated: true });
 });
 app.get("/logout", (req, res) => {
   req.logout((err) => {
@@ -315,6 +319,6 @@ app.get(
     }
   },
   (req, res) => {
-    res.render("how_to_use_api");
+    res.render("how_to_use_api", { isAuthenticated: true });
   }
 );

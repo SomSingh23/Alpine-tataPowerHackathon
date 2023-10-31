@@ -1,84 +1,12 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>User ID Form</title>
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/icon/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/icon/android-chrome-512x512.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/icon/android-chrome-192x192.png"
-    />
-    <link rel="stylesheet" href="/css/home.css" />
+<%-include('partials/header')%>
     <link rel="stylesheet" href="/css/1.css" />
   </head>
   <body>
-    <% if(!isAuthenticated){%>
-    <div class="nav_bar">
-      <div class="home">
-        <a href="/"><p>Home</p></a>
-      </div>
-      <div>
-        <a class="signpu" href="/api/google/verify"
-          ><p>Sign up with</p>
-          <img
-            src="/images/google_log.png"
-            alt="Google Logo"
-            class="google-logo"
-            height="20px"
-            width="20px"
-        /></a>
-      </div>
-      <div class="test_api">
-        <a href="/test_api"><p>Test API</p></a>
-      </div>
-      <div class="company">
-        <a href="/company_login"><p>Company Login</p></a>
-      </div>
-      <div class="api_key">
-        <a href="/api_key"><p>API KEY</p></a>
-      </div>
-    </div>
-
-    <%}else{%>
-    <div class="nav_bar">
-      <div class="home">
-        <a href="/"><p>Home</p></a>
-      </div>
-      <div>
-        <a href="/logout"><p class="logout">Logout</p> </a>
-      </div>
-      <div class="test_api">
-        <a href="/test_api"><p>Test API</p></a>
-      </div>
-      <div class="company">
-        <a href="/company_login"><p>Company Login</p></a>
-      </div>
-      <div class="api_key">
-        <a href="/api_key"><p>API KEY</p></a>
-      </div>
-    </div>
-
-    <%}%>
-
+    <%-include('partials/navbar')%>
     <form action="/test_api2" method="post" class="b1">
       <label for="userId">User ID:</label>
       <input type="text" id="userId" name="userId" required />
       <br />
       <input type="submit" value="Submit" />
     </form>
-    <div class="copyright">
-      <p>&copy; 2023 IIIT Pune. All rights reserved.</p>
-    </div>
-  </body>
-</html>
+    <%-include('partials/last')%>

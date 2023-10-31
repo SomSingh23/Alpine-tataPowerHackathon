@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<%-include('partials/header')%>
     <title>How to Use API Key</title>
   </head>
   <body>
+    <%-include('partials/navbar')%>
     <h1>How to use api key</h1>
     <div class="behaviour">
       <h2>User behaviour analysics</h2>
@@ -33,5 +30,4 @@
         { headers: { Authorization: API_KEY, }, } );
       </p>
     </div>
-  </body>
-</html>
+    <%-include('partials/last')%>

@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html>
-  <head>
+<%-include('partials/header')%>
     <title>API Key Information</title>
   </head>
   <body>
+    <%-include('partials/navbar')%>
     <h1>API Key Information</h1>
     <p>
       Note: Your API key can be used up to 500 times. Once the quota is
@@ -16,5 +15,4 @@
     <p>API Calls Remaining: <%= 500-x %></p>
 
     <p><a href="/api/use">How to use API</a></p>
-  </body>
-</html>
+    <%-include('partials/last')%>

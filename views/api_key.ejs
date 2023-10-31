@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html>
-  <head>
+<%-include('partials/header')%>
     <title>Generate API Key</title>
   </head>
   <body>
+    <%-include('partials/navbar')%>
     <h1>Generate API Key</h1>
     <form action="/api/generate" method="post">
       <label for="generateApiKey">Do you want to generate an API key?</label>
@@ -17,5 +16,4 @@
       <br />
       <button type="submit">Generate API Key</button>
     </form>
-  </body>
-</html>
+    <%-include('partials/last')%>
