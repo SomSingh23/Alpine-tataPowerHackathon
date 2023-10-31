@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How to Use API Key</title>
+  </head>
+  <body>
+    <h1>How to use api key</h1>
+    <div class="behaviour">
+      <p>
+        Send a Get request to this url mentioned in the example to see user
+        behaviour note that userId<6 and >1
+      </p>
+      <p>num belongs to [1,5]</p>
+      <p class="example">
+        axios.get( "http://localhost:3000/api/test/behaviour?userId=num", {
+        headers: { Authorization: API_KEY, }, } );
+      </p>
+    </div>
+    <div class="effi">
+      <p>
+        Send a Get request to the url mentioned in the example to see efficiency
+        recommendation to the user,note that userId<6 and >1
+      </p>
+      <p>num belongs to [1,5]</p>
+      <p class="example">
+        axios.get( "http://localhost:3000/api/test/efficiency?userId=num", {
+        headers: { Authorization: API_KEY, }, } );
+      </p>
+    </div>
+  </body>
+</html>

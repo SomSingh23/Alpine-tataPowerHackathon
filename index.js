@@ -155,7 +155,6 @@ app.get(
   }
 );
 app.get("/company/json", isCom, async (req, res) => {
-  // will add auth later on.... :)
   try {
     let data = await runPy2("python_function3.py");
     res.json(data);
@@ -164,7 +163,6 @@ app.get("/company/json", isCom, async (req, res) => {
   }
 });
 app.get("/company/visual", isCom, async (req, res) => {
-  // will add auth later on.... :)
   try {
     // let data = await runPy2("python_function3.py");
     let isAuthenticated = false;
@@ -176,7 +174,6 @@ app.get("/company/visual", isCom, async (req, res) => {
   }
 });
 app.get("/company/demand", isCom, async (req, res) => {
-  // will add auth later on.... :)
   try {
     // let data = await runPy2("python_function3.py");
     let isAuthenticated = false;
@@ -188,7 +185,6 @@ app.get("/company/demand", isCom, async (req, res) => {
   }
 });
 app.get("/company/cost", isCom, async (req, res) => {
-  // will add auth later on.... :)
   try {
     // let data = await runPy2("python_function3.py");
     let isAuthenticated = false;
@@ -200,7 +196,6 @@ app.get("/company/cost", isCom, async (req, res) => {
   }
 });
 app.get("/company/mapping", isCom, async (req, res) => {
-  // will add auth later on.... :)
   try {
     // let data = await runPy2("python_function3.py");
     let isAuthenticated = false;
@@ -305,3 +300,21 @@ app.get("/api/test/efficiency", getApi, (req, res) => {
     res.status(400).json(err);
   }
 });
+app.get(
+  "/api/use",
+  isAuth,
+  async (req, res, next) => {
+    let whatIsKey = req.user.googleId || req.user.salt;
+    let data = await Key.findOne({ id: whatIsKey });
+    if (data) {
+      next();
+      // if user has api key then only bypass this middleware!!
+      // other wise redirect to api_key page!!
+    } else {
+      res.status(300).redirect("/api_key");
+    }
+  },
+  (req, res) => {
+    res.render("how_to_use_api");
+  }
+);
