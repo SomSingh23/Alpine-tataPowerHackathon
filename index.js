@@ -16,6 +16,7 @@ let isAuth = require("./utils/middleware/isAuth");
 let runPy = require("./utils/runPy/runPy");
 let runPy2 = require("./utils/runPy/runPy2");
 let isCom = require("./utils/middleware/isCom");
+let checkCompany = require("./utils/returnCompany/checkCompany");
 let arr = require("./utils/stats/arrayData");
 let arr2 = require("./utils/stats/arrayData2");
 let arr3 = require("./utils/stats/arrayData3");
@@ -110,32 +111,37 @@ app.get(
 );
 
 // google auth routes end here
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
   let isAuthenticated = false;
   if (req.user) isAuthenticated = true;
-  res.render("home", { isAuthenticated });
+  let isCompany = await checkCompany(req);
+  res.render("home", { isAuthenticated, isCompany });
 });
-app.get("/test_api", isAuth, (req, res) => {
+app.get("/test_api", isAuth, async (req, res) => {
   let isAuthenticated = false;
   if (req.user) isAuthenticated = true;
-  res.render("type_api", { isAuthenticated });
+  let isCompany = await checkCompany(req);
+  res.render("type_api", { isAuthenticated, isCompany });
 });
-app.get("/test_api/ub_analysis", isAuth, (req, res) => {
+app.get("/test_api/ub_analysis", isAuth, async (req, res) => {
   let isAuthenticated = false;
   if (req.user) isAuthenticated = true;
-  res.render("test_api1", { isAuthenticated });
+  let isCompany = await checkCompany(req);
+  res.render("test_api1", { isAuthenticated, isCompany });
 });
-app.get("/test_api/effi_recom", isAuth, (req, res) => {
+app.get("/test_api/effi_recom", isAuth, async (req, res) => {
   let isAuthenticated = false;
   if (req.user) isAuthenticated = true;
-  res.render("test_api2", { isAuthenticated });
+  let isCompany = await checkCompany(req);
+  res.render("test_api2", { isAuthenticated, isCompany });
 });
 
 app.get(
   "/company_login",
   isAuth,
-  (req, res, next) => {
+  async (req, res, next) => {
     let ans = false;
+    let isCompany = await checkCompany(req);
     if (req.user === undefined) {
       return next();
     }
@@ -144,14 +150,15 @@ app.get(
     if (propertyCount === 6) {
       let isAuthenticated = false;
       if (req.user) isAuthenticated = true;
-      return res.render("company", { isAuthenticated });
+      return res.render("company", { isAuthenticated, isCompany });
     }
     next();
   },
-  (req, res) => {
+  async (req, res) => {
     let isAuthenticated = false;
     if (req.user) isAuthenticated = true;
-    return res.render("login", { isAuthenticated });
+    let isCompany = await checkCompany(req);
+    return res.render("login", { isAuthenticated, isCompany });
   }
 );
 app.get("/company/json", isCom, async (req, res) => {
@@ -165,10 +172,11 @@ app.get("/company/json", isCom, async (req, res) => {
 app.get("/company/visual", isCom, async (req, res) => {
   try {
     // let data = await runPy2("python_function3.py");
+    let isCompany = await checkCompany(req);
     let isAuthenticated = false;
     if (req.user) isAuthenticated = true;
     await runPy2("visualize_gen_ev.py");
-    res.render("visual", { isAuthenticated });
+    res.render("visual", { isAuthenticated, isCompany });
   } catch (err) {
     res.status(400).json("Something went wrong");
   }
@@ -176,10 +184,11 @@ app.get("/company/visual", isCom, async (req, res) => {
 app.get("/company/demand", isCom, async (req, res) => {
   try {
     // let data = await runPy2("python_function3.py");
+    let isCompany = await checkCompany(req);
     let isAuthenticated = false;
     if (req.user) isAuthenticated = true;
     await runPy2("demand_ev.py");
-    res.render("demand", { isAuthenticated, arr });
+    res.render("demand", { isAuthenticated, arr, isCompany });
   } catch (err) {
     res.status(400).json("Something went wrong");
   }
@@ -189,8 +198,9 @@ app.get("/company/cost", isCom, async (req, res) => {
     // let data = await runPy2("python_function3.py");
     let isAuthenticated = false;
     if (req.user) isAuthenticated = true;
+    let isCompany = await checkCompany(req);
     await runPy2("cost_efficiency.py");
-    res.render("cost", { isAuthenticated, arr2 });
+    res.render("cost", { isAuthenticated, arr2, isCompany });
   } catch (err) {
     res.status(400).json("Something went wrong");
   }
@@ -200,14 +210,16 @@ app.get("/company/mapping", isCom, async (req, res) => {
     // let data = await runPy2("python_function3.py");
     let isAuthenticated = false;
     if (req.user) isAuthenticated = true;
+    let isCompany = await checkCompany(req);
     await runPy2("spatialmapping.py");
-    res.render("mapping", { isAuthenticated });
+    res.render("mapping", { isAuthenticated, isCompany });
   } catch (err) {
     res.status(400).json("Something went wrong");
   }
 });
 app.get("/api_key", isAuth, async (req, res) => {
   let whatIsKey = req.user.googleId || req.user.salt;
+  let isCompany = await checkCompany(req);
   let data = await Key.findOne({ id: whatIsKey });
 
   if (data) {
@@ -215,9 +227,10 @@ app.get("/api_key", isAuth, async (req, res) => {
       isAuthenticated: true,
       key: whatIsKey,
       x: data.count,
+      isCompany,
     });
   }
-  res.render("api_key", { isAuthenticated: true });
+  res.render("api_key", { isAuthenticated: true, isCompany });
 });
 app.get("/logout", (req, res) => {
   req.logout((err) => {
@@ -248,10 +261,9 @@ app.post("/test_api2", isAuth, async (req, res) => {
 });
 app.post("/api/generate", isAuth, async (req, res) => {
   try {
-    console.log("Request to generate api key");
-
+    let isCompany = await checkCompany(req);
     let whatIsKey = req.user.googleId || req.user.salt;
-    let _data = await Key.findOne({ id: whatIsKey });
+    let _data = await Key.findOne({ id: whatIsKey, isCompany });
     if (_data) {
       return res.status(300).redirect("/api_key");
     }
@@ -293,7 +305,7 @@ app.get("/api/test/behaviour", getApi, async (req, res) => {
     res.status(400).json(err);
   }
 });
-app.get("/api/test/efficiency", getApi, (req, res) => {
+app.get("/api/test/efficiency", getApi, async (req, res) => {
   try {
     let userId = req.query.userId;
     if (userId <= 5 && userId >= 1) {
@@ -308,6 +320,7 @@ app.get(
   "/api/use",
   isAuth,
   async (req, res, next) => {
+    let isCompany = await checkCompany(req);
     let whatIsKey = req.user.googleId || req.user.salt;
     let data = await Key.findOne({ id: whatIsKey });
     if (data) {
@@ -318,7 +331,11 @@ app.get(
       res.status(300).redirect("/api_key");
     }
   },
-  (req, res) => {
-    res.render("how_to_use_api", { isAuthenticated: true });
+  async (req, res) => {
+    let isCompany = await checkCompany(req);
+    res.render("how_to_use_api", { isAuthenticated: true, isCompany });
   }
 );
+app.get("*", (req, res) => {
+  res.status(404).send("404 Not Found");
+});
