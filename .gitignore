@@ -5,3 +5,5 @@
 .env.local
 node_modules/
 *.txt
+*.png
+
